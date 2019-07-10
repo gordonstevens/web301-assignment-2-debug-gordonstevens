@@ -1,0 +1,101 @@
+download zip from repo and unzip.
+yarn add typescript:
+---Output---
+C:\htdocs\web304\web301-assignment-2-debug-master>yarn add typescript
+yarn add v1.16.0
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+info fsevents@2.0.6: The platform "win32" is incompatible with this module.
+info "fsevents@2.0.6" is an optional dependency and failed compatibility check. Excluding it from installation.
+info fsevents@1.2.9: The platform "win32" is incompatible with this module.
+info "fsevents@1.2.9" is an optional dependency and failed compatibility check. Excluding it from installation.
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ typescript@3.5.2
+info All dependencies
+└─ typescript@3.5.2
+Done in 40.48s.
+
+C:\htdocs\web304\web301-assignment-2-debug-master>yarn install
+
+------------
+Note: According to the official NPM repo at https://www.npmjs.com/package/fsevents, this is a Mac-only package, after reading the official page and noting its functionality, this may not be a required package. Will continue with the process and keep this in mind.
+------------
+./node_modules and ./public appear normal
+
+./index.js:
+- Noted missing <Router> in ReactDOM.render statement, checked import statement above and checked App.js, router is intended to be implemented, added <Router><App /></Router>
+
+./App.js:
+- Changed case in import Documentation from './pages/documentation/Documentation' to import Documentation from './pages/Documentation/Documentation'
+- Noted that styles.app is pointing to an empty CSS pseudo class .app, but isn't a bug so leaving it alone 
+
+./page/:
+- Renamed to ./pages/ to match up
+
+./src/components/Card/Card.js:
+- Changed import style to import styles (Using SASS)
+- Added props to const Card = () => { ... becomes const Card = (props) => {
+- Apparently using SASS (.scss), switched to it and VSCode validates it as SASS although it is also valid CSS
+- Added export default Card; to end of file
+
+./src/components/Header/Header.js:
+- Learned about NavLink can specify multiple props RE: https://www.codementor.io/packt/using-the-link-and-navlink-components-to-navigate-to-a-route-rieqipp42
+- In desktopNav <div...>, changed <NavLink exact to="/home">Home</NavLink> to <NavLink exact to="/">Home</NavLink>
+- In desktopNav <div...>, changed <NavLink to="/about">Documentation</NavLink> to <NavLink to="/documentation">Documentation</NavLink> (Matches up to <Route> defined in <Switch> in App.js
+- In mobileDrawerNav <div...>, checked logic and is valid 
+- SASS validates as proper to VSCode
+- Found Header.test.js
+
+./src/page/Api/Api.js:
+- Completely missing reference to absent SASS module yet uses <div className="api"> ...
+- Changed <div className="api"> to <div> for now as SASS file isn't to be found right now
+- Changed const API = () => { ... to const Api = () => { ... to match rest of project references
+
+./src/page/Documentation/documentation.js:
+- Renaming filename case to Documentation.js
+- Changed import Card from '../../components/card/Card' to import Card from '../../components/Card/Card';
+- Changed <div className="documentation"> to <div> for now as SASS file isn't to be found right now
+
+./src/page/Home/Home.js:
+- Changed case in import Card from '../../components/Card/card' to import Card from '../../components/Card/Card'
+- Changed case in const home = () => { ... to const Home = () => { ...
+- Changed <div className="home"> to <div> as there is no reference to a SASS/CSS nor any file to support a reference
+- Changed <h1>You fixed the Home Page!</h2> to <h2>You fixed the Home Page!</h2>. Note that this could be an <h1> or <h2>, but I chose <h2> as more correct as it matches the other pages and SEO would
+technically search engines would pick-up the <h1> in the header. Not the best setup, but SEO on an SPA is a challenge.
+- Added export default Home; to end of file
+
+yarn start
+- Successful
+
+yarn test
+- Found two test suites, Header.test.js and App.test.js, both failed
+
+./src/components/Header/Header.test.js
+- Missing package enzyme, checked NPM repo and found https://www.npmjs.com/package/enzyme, read it over, seems useful if for one command in the test file
+- Added import Adapter from 'enzyme-adapter-react-16'; to declare adapter
+
+yarn add enzyme
+- Ignoring info about "fsevents" for now
+- Package install successful
+
+yarn test
+- Found two test suites, only one failed
+- Really need to declare Adapter as described
+
+./src/components/Header/Header.test.js
+- Changed import React from 'react' to import React from 'react'
+- Changed import { shallow } from 'enzyme' to import Enzyme, { shallow } from 'enzyme'
+- Added: import Adapter from 'enzyme-adapter-react-16'; and Enzyme.configure({ adapter: new Adapter() }); to declare the Adapter as described on the NPM Repo page
+
+./src/components/Header/Header.test.js
+- Added import { BrowserRouter as Router } from 'react-router-dom';
+- Changed ReactDOM.render(<App />, div); to ReactDOM.render(<Router><App /></Router>, div); to include the Router into the test suite
+
+Erased the yarn error log to start a fresh log
+
+yarn test
+- Both test suites passed successfully! All tests completed successfully.

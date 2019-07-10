@@ -1,0 +1,87 @@
+.header {
+  position: relative;
+  background: #fff;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 90px;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  a {
+    display: flex;
+    text-decoration: none;
+    color: #666;
+    height: 90px;
+    outline: 0;
+    &:hover {
+      text-decoration: none;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      .logo {
+        margin-right: 10px;
+      }
+      .title {
+        h1 {
+          padding: 0;
+          margin: 0;
+          font-size: 1.5em;
+        }
+        p.subheading {
+          font-size: 0.9em;
+          margin: 0;
+          line-height: 1em;
+        }
+      }
+    }
+  }
+  .desktopNav {
+    display: none;
+    justify-content: flex-end;
+    flex-grow: 1;
+    nav {
+      ul {
+        padding-left: 0;
+        margin: 0;
+        li {
+          display: inline-flex;
+          align-items: center;
+          height: 90px;
+          padding: 0;
+          a {
+            line-height: 90px;
+            padding: 0 20px;
+            &:global(.active) {
+              border-bottom: 4px solid hotpink;
+            }
+          }
+        }
+      }
+    }
+  }
+  .mobileNav {
+    display: flex;
+    position: absolute;
+    right: 40px;
+    .menuButton {
+      button {
+        span {
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+  
+}
+@media screen and (min-width: 768px) {
+  .header {
+    .desktopNav {
+      display: flex;
+    }
+    .mobileNav {
+      display: none;
+    }
+  }
+}
